@@ -6,7 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require moment
-//= require bootstrap-datetimepicker
-//= require spree/backend
+//= require spree/frontend
+
 //= require_tree .

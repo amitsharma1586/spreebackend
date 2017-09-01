@@ -6,6 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui/autocomplete
-//= require spree/frontend
+//= require spree/backend
+
 //= require_tree .
