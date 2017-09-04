@@ -1,6 +1,6 @@
 # config valid only for current version of Capistrano
 lock "3.9.0"
-
+server '34.214.34.14', user: 'deploy', roles: %w{web app db}
 set :application, "spreebackend"
 set :repo_url, 'git@github.com:amitsharma1586/spreebackend.git'
 
