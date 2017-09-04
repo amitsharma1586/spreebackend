@@ -40,6 +40,12 @@ namespace :puma do
 end
 
 namespace :deploy do
+  
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+  end
+
   desc "Make sure local git is in sync with remote."
   task :check_revision do
     on roles(:app) do
@@ -65,6 +71,8 @@ namespace :deploy do
       invoke 'puma:restart'
     end
   end
+
+
 
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
