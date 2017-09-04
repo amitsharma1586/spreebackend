@@ -41,9 +41,15 @@ end
 
 namespace :deploy do
   
-  desc "reload the database with seed data"
-  task :seed do
-    run "cd #{current_path}; rake db:seed RAILS_ENV=#{rails_env}"
+  desc 'Runs rake db:seed for SeedMigrations data'
+  task :seed => [:set_rails_env] do
+    on primary fetch(:migration_role) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, "db:seed"
+        end
+      end
+    end
   end
 
   desc "Make sure local git is in sync with remote."
@@ -71,11 +77,9 @@ namespace :deploy do
       invoke 'puma:restart'
     end
   end
-
-
-
   before :starting,     :check_revision
   after  :finishing,    :compile_assets
+  after  :migrate,      :seed
   after  :finishing,    :cleanup
   after  :finishing,    :restart
 end
